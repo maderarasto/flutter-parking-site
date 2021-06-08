@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(ParkingSite());
+import 'screens/home.dart';
+
+void main() => runApp(ParkingSite(key: UniqueKey()));
 
 class ParkingSite extends StatelessWidget {
-  Widget build(BuildContext content) {
+  const ParkingSite({required Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(),
+      home: Home(key: UniqueKey()),
     );
   }
 }
