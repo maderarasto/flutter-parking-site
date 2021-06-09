@@ -1,22 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class WatchSectors extends StatefulWidget {
-  const WatchSectors({required Key key}) : super(key: key);
+import '../components/sector_widget.dart';
 
-  @override
-  _WatchSectorsState createState() => _WatchSectorsState();
-}
+class WatchSectors extends StatelessWidget {
+  const WatchSectors({Key? key}) : super(key: key);
 
-class _WatchSectorsState extends State<WatchSectors> {
-  List _sectors = [];
+  onMinusPressed(String sector) {
+    debugPrint('minus at $sector');
+  }
+
+  onPlusPressed(String sector) {
+    debugPrint('plus at $sector');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Flutter Parking Site')),
-        body: Column(
-          children: [],
-        ));
+      appBar: AppBar(
+        title: const Text('Flutter Parking Site'),
+      ),
+      body: Column(
+        children: [
+          SectorWidget(
+            key: UniqueKey(),
+            sector: 'A',
+            onMinusPressed: onMinusPressed,
+            onPlusPressed: onPlusPressed,
+          ),
+          SectorWidget(
+            key: UniqueKey(),
+            sector: 'B',
+            onMinusPressed: onMinusPressed,
+            onPlusPressed: onPlusPressed,
+          ),
+          SectorWidget(
+            key: UniqueKey(),
+            sector: 'C',
+            onMinusPressed: onMinusPressed,
+            onPlusPressed: onPlusPressed,
+          ),
+          SectorWidget(
+            key: UniqueKey(),
+            sector: 'D',
+            onMinusPressed: onMinusPressed,
+            onPlusPressed: onPlusPressed,
+          ),
+        ],
+      ),
+    );
   }
 }
