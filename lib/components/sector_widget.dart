@@ -62,9 +62,13 @@ class _SectorWidgetState extends State<SectorWidget> {
                 onPressed: onMinusPressed,
                 width: 70,
                 height: 70,
-                text: '-',
+                child: const Text('-'),
                 disabled: _cars == 0),
-            Button(onPressed: onPlusPressed, width: 70, height: 70, text: '+')
+            Button(
+                onPressed: onPlusPressed,
+                width: 70,
+                height: 70,
+                child: const Text('+'))
           ],
         ),
         const Padding(padding: EdgeInsets.only(bottom: 5))

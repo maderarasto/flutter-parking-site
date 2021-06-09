@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'watch_sectors.dart';
+import 'measure_time.dart';
 
 class Home extends StatelessWidget {
   const Home({required Key key}) : super(key: key);
@@ -13,6 +14,13 @@ class Home extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => WatchSectors(key: UniqueKey())));
+    }
+
+    void onMeasureTimePressed() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MeasureTime(key: UniqueKey())));
     }
 
     return Scaffold(
@@ -34,13 +42,28 @@ class Home extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                     onPressed: onWatchSectorsPressed,
-                    child: const Text('Watch Sectors')),
+                    child: const Text(
+                      'Watch Sectors',
+                      textAlign: TextAlign.center,
+                    )),
                 ElevatedButton(
-                    onPressed: null, child: const Text('Measure Queue Times')),
+                    onPressed: onMeasureTimePressed,
+                    child: const Text(
+                      'Measure Queue Times',
+                      textAlign: TextAlign.center,
+                    )),
                 ElevatedButton(
-                    onPressed: null, child: const Text('Sectors Data')),
+                    onPressed: null,
+                    child: const Text(
+                      'Sectors Data',
+                      textAlign: TextAlign.center,
+                    )),
                 ElevatedButton(
-                    onPressed: null, child: const Text('Measure Data')),
+                    onPressed: null,
+                    child: const Text(
+                      'Measure Data',
+                      textAlign: TextAlign.center,
+                    )),
               ],
             ),
           )

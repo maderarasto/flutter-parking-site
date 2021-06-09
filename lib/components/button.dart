@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 class Button extends StatelessWidget {
   final double width;
   final double height;
-  final String text;
-  final VoidCallback? onPressed;
   final bool disabled;
+  final VoidCallback? onPressed;
+  final Widget? child;
 
-  Button(
-      {Key? key,
-      this.width = 30,
-      this.height = 30,
-      this.text = 'button',
-      this.onPressed,
-      this.disabled = false});
+  Button({
+    Key? key,
+    this.width = 30,
+    this.height = 30,
+    this.disabled = false,
+    required this.onPressed,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class Button extends StatelessWidget {
       height: height,
       child: ElevatedButton(
         onPressed: !disabled ? onPressed : null,
-        child: Text(text),
+        child: child,
       ),
     );
   }
