@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/button_section.dart';
+import '../local_db.dart';
 
 class MeasureTime extends StatefulWidget {
   const MeasureTime({Key? key}) : super(key: key);
@@ -13,11 +14,20 @@ class _MeasureTimeState extends State<MeasureTime> {
   final List _queueCars = [];
   double _lastDuration = 0.0;
 
-  void onTurningAwayPressed() {
+  void onTurningAwayPressed() async {
+    var object = {
+      'type': 'turning-away',
+      'created_at': DateTime.now().toString()
+    };
+
+    await LocalDB.db.insert('departures', object);
     debugPrint('Turning Away');
   }
 
-  void onLeavingPressed() {
+  void onLeavingPressed() async {
+    var object = {'type': 'leaving', 'created_at': DateTime.now().toString()};
+
+    await LocalDB.db.insert('departures', object);
     debugPrint('Leaving');
   }
 
@@ -29,10 +39,17 @@ class _MeasureTimeState extends State<MeasureTime> {
     });
   }
 
-  void onStopPressed() {
+  void onStopPressed() async {
     int timestamp = _queueCars.first;
     int currentTime = DateTime.now().millisecondsSinceEpoch;
     double duration = (currentTime - timestamp) / 1000;
+
+    var object = {
+      'duration': duration,
+      'created_at': DateTime.fromMillisecondsSinceEpoch(timestamp)
+    };
+
+    await LocalDB.db.insert('queue_times', object);
 
     setState(() {
       _queueCars.removeAt(0);
