@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import 'button.dart';
+import '../local_db.dart';
 
 class SectorWidget extends StatefulWidget {
   final String sector;
-  final Function(String)? onMinusPressed;
-  final Function(String)? onPlusPressed;
 
-  const SectorWidget(
-      {required Key key,
-      required this.sector,
-      this.onMinusPressed,
-      this.onPlusPressed})
+  const SectorWidget({required Key key, required this.sector})
       : super(key: key);
 
   @override
@@ -22,20 +16,43 @@ class SectorWidget extends StatefulWidget {
 class _SectorWidgetState extends State<SectorWidget> {
   int _cars = 0;
 
-  void onMinusPressed() {
+  @override
+  void initState() {
+    super.initState();
+    LocalDB.db.get('sectors',
+        whereSql: 'letter = ?', parameters: [widget.sector]).then((result) {
+      for (var sectorItem in result) {
+        setState(() {
+          _cars += sectorItem['type'] == 'arrival' ? 1 : -1;
+        });
+      }
+    });
+  }
+
+  void onMinusPressed() async {
+    var object = {
+      'letter': widget.sector,
+      'type': 'departure',
+      'created_at': DateTime.now().toString()
+    };
+
+    await LocalDB.db.insert('sectors', object);
     setState(() {
       _cars -= 1;
     });
-
-    widget.onMinusPressed!(widget.sector);
   }
 
-  void onPlusPressed() {
+  void onPlusPressed() async {
+    var object = {
+      'letter': widget.sector,
+      'type': 'arrival',
+      'created_at': DateTime.now().toString()
+    };
+
+    await LocalDB.db.insert('sectors', object);
     setState(() {
       _cars += 1;
     });
-
-    widget.onPlusPressed!(widget.sector);
   }
 
   @override
