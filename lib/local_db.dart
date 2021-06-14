@@ -19,10 +19,10 @@ class LocalDB {
   Future<List<Map<String, dynamic>>> get(String tableName,
       {String whereSql = '', List parameters = const []}) async {
     final db = await database;
-    final List<Map<String, dynamic>> result =
-        await db.query(tableName, where: whereSql, whereArgs: parameters);
 
-    return result;
+    return await db.rawQuery('''
+      SELECT * FROM $tableName ${whereSql != '' ? ' WHERE $whereSql' : ''}
+    ''', parameters);
   }
 
   Future<void> insert(String tableName, Map<String, dynamic> object) async {

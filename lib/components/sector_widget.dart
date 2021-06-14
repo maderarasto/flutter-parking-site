@@ -19,6 +19,7 @@ class _SectorWidgetState extends State<SectorWidget> {
   @override
   void initState() {
     super.initState();
+
     LocalDB.db.get('sectors',
         whereSql: 'letter = ?', parameters: [widget.sector]).then((result) {
       for (var sectorItem in result) {

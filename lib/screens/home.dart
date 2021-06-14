@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'watch_sectors.dart';
 import 'measure_time.dart';
+import 'sectors_data.dart';
 
 class Home extends StatelessWidget {
   const Home({required Key key}) : super(key: key);
@@ -21,6 +22,13 @@ class Home extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => MeasureTime(key: UniqueKey())));
+    }
+
+    void onSectorsDataPressed() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SectorsData(key: UniqueKey())));
     }
 
     return Scaffold(
@@ -53,7 +61,7 @@ class Home extends StatelessWidget {
                       textAlign: TextAlign.center,
                     )),
                 ElevatedButton(
-                    onPressed: null,
+                    onPressed: onSectorsDataPressed,
                     child: const Text(
                       'Sectors Data',
                       textAlign: TextAlign.center,
