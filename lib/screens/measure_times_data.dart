@@ -1,6 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 import 'package:flutter_parking_site/local_db.dart' show LocalDB, ResultSet;
 import '../components/data_bar.dart';
@@ -48,19 +48,32 @@ class _MeasureTimesDataState extends State<MeasureTimesData> {
 
   @override
   Widget build(BuildContext context) {
+    void onExportPressed() async {
+      List<ResultSet> data = await LocalDB.db.get('queue_times');
+      Directory documentsDir = await getApplicationDocumentsDirectory();
+      File exportedFile = File('${documentsDir.path}/queue_times_export.csv');
+
+      for (var item in data) {
+        String row = '${item['created_at']};${item['duration']};';
+        await exportedFile.writeAsString('$row\n');
+      }
+    }
+
     void onClearPressed() {
       showDialog(
-          context: context,
-          builder: (BuildContext context) => Alert(
-                title: const Text('Clear data'),
-                content: const Text('Are you sure you want to clear data?'),
-                onCancel: onAlertCancelPressed,
-                onConfirm: onAlertConfirmPressed,
-              ));
+        context: context,
+        builder: (BuildContext context) => Alert(
+          title: const Text('Clear data'),
+          content: const Text('Are you sure you want to clear data?'),
+          onCancel: onAlertCancelPressed,
+          onConfirm: onAlertConfirmPressed,
+        ),
+      );
     }
 
     void onActionButtonPressed(Map<String, dynamic> button) async {
       if (button['key'] == const Key('export')) {
+        onExportPressed();
       } else if (button['key'] == const Key('clear')) {
         onClearPressed();
       }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'dart:io';
 
 import 'package:flutter_parking_site/local_db.dart' show LocalDB, ResultSet;
+import 'package:path_provider/path_provider.dart';
 import '../components/data_bar.dart';
 import '../components/list_item.dart';
 import '../components/alert.dart';
@@ -79,6 +81,17 @@ class _SectorsDataState extends State<SectorsData> {
 
   @override
   Widget build(BuildContext context) {
+    void onExportPressed() async {
+      List<ResultSet> data = await loadSectorsData();
+      Directory documentsDir = await getApplicationDocumentsDirectory();
+      File exportedFile = File('${documentsDir.path}/sectors_export.csv');
+
+      for (var item in data) {
+        String row = '${item['created_at']};${item['type']};${item['letter']}';
+        await exportedFile.writeAsString('$row\n');
+      }
+    }
+
     void onClearPressed() {
       showDialog(
           context: context,
@@ -92,6 +105,7 @@ class _SectorsDataState extends State<SectorsData> {
 
     void onActionButtonPressed(Map<String, dynamic> button) async {
       if (button['key'] == const Key('export')) {
+        onExportPressed();
       } else if (button['key'] == const Key('clear')) {
         onClearPressed();
       }
