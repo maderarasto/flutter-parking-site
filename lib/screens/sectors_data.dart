@@ -54,6 +54,20 @@ class _SectorsDataState extends State<SectorsData> {
     return const TextStyle(fontSize: 18);
   }
 
+  String getFormattedDateTime(String stringifiedDate) {
+    DateTime createdAt = DateTime.parse(stringifiedDate);
+    String date = '${createdAt.day}. ${createdAt.month}. ${createdAt.year}';
+    String time = '${createdAt.hour}:${createdAt.minute}:${createdAt.second}';
+
+    return '$date $time';
+  }
+
+  Icon getItemTypeIcon(String type) {
+    return type == 'arrival'
+        ? const Icon(Icons.arrow_forward, color: Colors.green, size: 24)
+        : const Icon(Icons.arrow_back, color: Colors.red, size: 24);
+  }
+
   void onFilterButtonPressed(Map<String, dynamic> button) async {
     RegExp rule = RegExp(r"[[<]|[']|[>]]");
     String keyText = button['key'].toString().replaceAll(rule, '');
@@ -76,7 +90,10 @@ class _SectorsDataState extends State<SectorsData> {
       _data = result;
     });
 
-    debugPrint('Confirm');
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Clearing sectors data successful'),
+      backgroundColor: Colors.green,
+    ));
   }
 
   @override
@@ -86,10 +103,17 @@ class _SectorsDataState extends State<SectorsData> {
       Directory documentsDir = await getApplicationDocumentsDirectory();
       File exportedFile = File('${documentsDir.path}/sectors_export.csv');
 
+      await exportedFile.writeAsString('', mode: FileMode.write);
+
       for (var item in data) {
         String row = '${item['created_at']};${item['type']};${item['letter']}';
-        await exportedFile.writeAsString('$row\n');
+        await exportedFile.writeAsString('$row\n', mode: FileMode.append);
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Export sectors data successful'),
+        backgroundColor: Colors.green,
+      ));
     }
 
     void onClearPressed() {
@@ -135,13 +159,14 @@ class _SectorsDataState extends State<SectorsData> {
                       return ListItem(
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
                         children: [
-                          Text(_data[index]['created_at'],
+                          Text(getFormattedDateTime(_data[index]['created_at']),
                               style: getListItemTextStyle()),
+                          getItemTypeIcon(_data[index]['type']),
                           Row(
                             children: [
-                              Text(_data[index]['type'][0].toUpperCase(),
-                                  style: getListItemTextStyle()),
-                              const Padding(padding: EdgeInsets.only(left: 15)),
+                              const Icon(Icons.door_sliding,
+                                  color: Colors.grey, size: 24),
+                              const Padding(padding: EdgeInsets.only(left: 5)),
                               Text('Sector ${_data[index]['letter']}',
                                   style: getListItemTextStyle()),
                             ],

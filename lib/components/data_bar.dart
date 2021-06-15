@@ -8,7 +8,7 @@ class DataBar extends StatelessWidget {
   final Function? onFilterPressed;
   final Function? onActionPressed;
 
-  DataBar(
+  const DataBar(
       {Key? key,
       this.padding = const EdgeInsets.all(0),
       this.filterButtons = const [],
@@ -52,14 +52,15 @@ class DataBar extends StatelessWidget {
               'key': Key('export'),
               'width': 40.0,
               'height': 40.0,
-              'widget': Text('E'),
+              'widget': Icon(Icons.download, color: Colors.white, size: 24),
               'color': Colors.green
             },
             {
               'key': Key('clear'),
               'width': 40.0,
               'height': 40.0,
-              'widget': Text('R'),
+              'widget':
+                  Icon(Icons.delete_forever, color: Colors.white, size: 24),
               'color': Colors.red
             }
           ])

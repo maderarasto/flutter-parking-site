@@ -41,8 +41,8 @@ class Button extends StatelessWidget {
         onPressed: !disabled ? onPressed : null,
         child: child,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(resolveColor()),
-        ),
+            backgroundColor: MaterialStateProperty.all(resolveColor()),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(0))),
       ),
     );
   }

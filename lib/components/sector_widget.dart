@@ -80,13 +80,13 @@ class _SectorWidgetState extends State<SectorWidget> {
                 onPressed: onMinusPressed,
                 width: 70,
                 height: 70,
-                child: const Text('-'),
+                child: const Icon(Icons.remove, color: Colors.white, size: 36),
                 disabled: _cars == 0),
             Button(
                 onPressed: onPlusPressed,
                 width: 70,
                 height: 70,
-                child: const Text('+'))
+                child: const Icon(Icons.add, color: Colors.white, size: 36))
           ],
         ),
         const Padding(padding: EdgeInsets.only(bottom: 5))

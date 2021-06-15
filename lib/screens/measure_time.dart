@@ -62,12 +62,13 @@ class _MeasureTimeState extends State<MeasureTime> {
         children: _queueCars.map((carTimestamp) {
       var dateTime = DateTime.fromMillisecondsSinceEpoch(carTimestamp);
 
-      return SizedBox(
-          height: 40,
-          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const Icon(Icons.directions_car, color: Colors.black, size: 24),
             Text(dateTime.toLocal().toString(),
                 style: const TextStyle(fontSize: 16)),
-            const Padding(padding: EdgeInsets.only(right: 20))
           ]));
     }).toList());
   }
@@ -82,15 +83,28 @@ class _MeasureTimeState extends State<MeasureTime> {
           children: [
             ButtonSection(
               title: 'Departure Cars',
-              button1: const Text('Turning Away', textAlign: TextAlign.center),
-              button2: const Text('Leaving', textAlign: TextAlign.center),
+              button1: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(Icons.restart_alt, color: Colors.white, size: 48),
+                  Text('Turning Away', textAlign: TextAlign.center)
+                ],
+              ),
+              button2: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(Icons.exit_to_app, color: Colors.white, size: 48),
+                  Text('Leaving', textAlign: TextAlign.center)
+                ],
+              ),
               onButton1Pressed: onTurningAwayPressed,
               onButton2Pressed: onLeavingPressed,
             ),
             ButtonSection(
               title: 'Measure Queue Time',
-              button1: const Text('Play', textAlign: TextAlign.center),
-              button2: const Text('Stop', textAlign: TextAlign.center),
+              button1:
+                  const Icon(Icons.play_arrow, color: Colors.white, size: 48),
+              button2: const Icon(Icons.stop, color: Colors.white, size: 48),
               onButton1Pressed: onStartPressed,
               onButton2Pressed: onStopPressed,
             ),

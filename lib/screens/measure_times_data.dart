@@ -43,7 +43,10 @@ class _MeasureTimesDataState extends State<MeasureTimesData> {
       _data = result;
     });
 
-    debugPrint('Confirm');
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Clearing measure times data successful'),
+      backgroundColor: Colors.green,
+    ));
   }
 
   @override
@@ -57,6 +60,11 @@ class _MeasureTimesDataState extends State<MeasureTimesData> {
         String row = '${item['created_at']};${item['duration']};';
         await exportedFile.writeAsString('$row\n');
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Export measure times data successful'),
+        backgroundColor: Colors.green,
+      ));
     }
 
     void onClearPressed() {

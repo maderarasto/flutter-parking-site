@@ -58,27 +58,52 @@ class Home extends StatelessWidget {
               children: <Widget>[
                 ElevatedButton(
                     onPressed: onWatchSectorsPressed,
-                    child: const Text(
-                      'Watch Sectors',
-                      textAlign: TextAlign.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Icon(Icons.border_all_rounded,
+                            color: Colors.white, size: 72),
+                        Text('Watch Sectors', textAlign: TextAlign.center),
+                      ],
                     )),
                 ElevatedButton(
                     onPressed: onMeasureTimePressed,
-                    child: const Text(
-                      'Measure Queue Times',
-                      textAlign: TextAlign.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Icon(Icons.access_alarm_rounded,
+                            color: Colors.white, size: 72),
+                        Text(
+                          'Measure Queue Times',
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     )),
                 ElevatedButton(
                     onPressed: onSectorsDataPressed,
-                    child: const Text(
-                      'Sectors Data',
-                      textAlign: TextAlign.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Icon(Icons.view_list_rounded,
+                            color: Colors.white, size: 72),
+                        Text(
+                          'Sectors Data',
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     )),
                 ElevatedButton(
                     onPressed: onMeasureTimesDataPressed,
-                    child: const Text(
-                      'Measure Times Data',
-                      textAlign: TextAlign.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Icon(Icons.view_list_rounded,
+                            color: Colors.white, size: 72),
+                        Text(
+                          'Measured Times Data',
+                          textAlign: TextAlign.center,
+                        )
+                      ],
                     )),
               ],
             ),
