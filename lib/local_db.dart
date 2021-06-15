@@ -1,6 +1,8 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+typedef ResultSet = Map<String, dynamic>;
+
 class LocalDB {
   static const _name = 'parking_site.db';
   static const _version = 1;
@@ -30,6 +32,15 @@ class LocalDB {
 
     await db.insert(tableName, object,
         conflictAlgorithm: ConflictAlgorithm.fail);
+  }
+
+  Future<void> delete(String tableName,
+      {String whereSql = '', List parameters = const []}) async {
+    final db = await database;
+
+    await db.rawDelete('''
+      DELETE FROM $tableName ${whereSql != '' ? ' WHERE $whereSql' : ''}
+    ''', parameters);
   }
 
   Future<Database> _initDatabase() async {
