@@ -46,7 +46,7 @@ class _MeasureTimeState extends State<MeasureTime> {
 
     var object = {
       'duration': duration,
-      'created_at': DateTime.fromMillisecondsSinceEpoch(timestamp)
+      'created_at': DateTime.fromMillisecondsSinceEpoch(timestamp).toString()
     };
 
     await LocalDB.db.insert('queue_times', object);
